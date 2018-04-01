@@ -1,0 +1,104 @@
+html , body, #overlay {
+    width: 100%;
+    margin: 0;
+    font-family: monospace;
+    font-size: large;
+}
+
+#canvas-wrap { position:relative } /* Make this a positioned parent */
+#overlay     { position:relative; top:20px; }
+#canvas-wrap { position:relative; }
+#canvas-wrap canvas { position:absolute; top:0; left:0; z-index:0 }
+
+.header  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 3em;
+}
+
+.draggables{
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    align-items: center;
+    justify-content: center;
+}
+
+.draggables > .board-item {
+    margin: 10px;
+    
+}
+.board-item.item{
+    background-color:rgb(204, 204, 204);
+    opacity: 0.6;
+    font-weight: bold;
+}
+
+.board{
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+    align-items: center;
+    justify-content: center;
+}
+.board-8{
+    grid-template-columns: repeat(8, auto);
+}
+.board-item{
+    width: 3em;
+    height: 3em;
+    border: 1px rgb(25, 90, 35) solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.board > .board-item.over {
+     border: 1px dashed rgb(255, 0, 0);
+     background: rgb(204, 204, 204);
+}
+.board > .board-item.verify {
+    background: rgb(204, 204, 204);
+}
+
+@media only screen and (min-width:320px) { 
+	.board-item{
+        width: 29px;
+        height: 29px;
+    }
+    .deslocate{
+        position: relative;
+        top: 29px;
+    }
+}
+@media only screen and (min-width:375px) { 
+	.board-item{
+        width: 2em;
+        height: 2em;
+    }
+    .deslocate{
+        position: relative;
+        top: -2em;
+    }
+}
+@media only screen and (min-width:425px) { 
+	.board-item{
+        width: 2.3em;
+        height: 2.3em;
+    }
+    .deslocate{
+        position: relative;
+        top: -2.3em;
+    }
+}
+@media only screen and (min-width:768px) { 
+	.board-item{
+        width: 3em;
+        height: 3em;
+    }
+    .deslocate{
+        position: relative;
+        top: -3em;
+    }
+}

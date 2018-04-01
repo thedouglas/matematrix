@@ -1,0 +1,12 @@
+{
+    "short_name": "Matematrix",
+    "name": "Matematrix",
+    "icons": [
+      {
+        "src": "/image/matematrix-icon.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      }
+    ],
+    "start_url": "/?utm_source=homescreen"
+  }
