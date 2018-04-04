@@ -4,9 +4,9 @@ let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 let elementPontos = document.getElementById("pontos");
 let board = document.querySelector(".board");
 let draggables = document.querySelector(".draggables");
-let trash = document.querySelector("#trash");
+
 const MATRIZ_SIZE = 10;
-if(MATRIZ_SIZE == 8) {
+if (MATRIZ_SIZE == 8) {
     board.classList.add("board-8")
 }
 let matrix = new Array(MATRIZ_SIZE)
@@ -48,7 +48,7 @@ function matrixRain() {
 
             drops[i]++;
         }
-       
+
         if (teste > limit) {
             teste = 0;
             clearInterval(interval)
@@ -59,7 +59,7 @@ function matrixRain() {
 }
 
 function start() {
-  
+
     board.innerHTML = "";
     draggables.innerHTML = "";
     for (let y = 0; y < MATRIZ_SIZE; y++) {
@@ -98,7 +98,7 @@ function start() {
 
 function handleDragStart(e) {
     this.style.opacity = '0.4';
- 
+
 }
 function handleDragEnter(e) {
     if (this.disable === false) {
@@ -112,14 +112,13 @@ function allowDrop(ev) {
     if (ev.target.disable === false) {
         ev.preventDefault();
     }
-
 }
 
 function drag(ev) {
     element = ev.target;
-    
+
     ev.dataTransfer.effectAllowed = "move";
-   
+
     ev.dataTransfer.setData("item", ev.target.textContent);
 }
 
@@ -130,7 +129,6 @@ function drop(ev) {
     ev.target.classList.add('item');
     ev.target.classList.remove('over');
     ev.target.disable = true;
-    trash.innerHTML = ""
     let id = element.getAttribute("id");
     if (id == "op_1" || id == "op_3") {
         element.textContent = operadores.random();
@@ -145,7 +143,7 @@ function drop(ev) {
         let pontos = Number(elementPontos.textContent);
         pontos += await verificaExpressao(expressaoX, "x");
         pontos += await verificaExpressao(expressaoY, "y");
-       elementPontos.textContent = pontos;
+        elementPontos.textContent = pontos;
     })();
 
 }
@@ -153,9 +151,7 @@ function drop(ev) {
 async function verificaExpressao(expressao, eixo) {
 
     let expr = Array.from(expressao)
-        .sort((a, b) => {
-            return Number(a.getAttribute(eixo)) - Number(b.getAttribute(eixo))
-        })
+        .sort((a, b) => Number(a.getAttribute(eixo)) - Number(b.getAttribute(eixo)))
         .map(it => it.textContent)
         .reduce((a, b) => a + b)
 
@@ -182,7 +178,7 @@ async function verificaExpressao(expressao, eixo) {
 
 async function calculaPontos(expr) {
     let pontos = 0;
-    if (expr.includes('-')) { 
+    if (expr.includes('-')) {
         pontos += 10;
     }
     if (expr.includes('+')) {
@@ -197,7 +193,7 @@ async function calculaPontos(expr) {
     if (expr.includes('==')) {
         pontos += 5;
     }
-    
+
     return pontos;
 }
 
@@ -240,19 +236,19 @@ async function verificaMatriz(yy, xx) {
     return [expressaoX, expressaoY];
 }
 window.addEventListener("load", () => {
-   Array.prototype.random = function () {
-       return this[Math.floor(Math.random() * this.length)];
-   };
+    Array.prototype.random = function () {
+        return this[Math.floor(Math.random() * this.length)];
+    };
 
     // get point for a touch event
     DragDropTouch.DragDropTouch.prototype._getPoint = function (e, page) {
         if (e && e.touches) {
             e = e.touches[0];
         }
-        if(e.offsetY === undefined) {
-            return { x: page ? e.pageX  : e.clientX, y: page ? (e.pageY - 40) : (e.clientY - 40 ) };
+        if (e.offsetY === undefined) {
+            return { x: page ? e.pageX : e.clientX, y: page ? (e.pageY - 40) : (e.clientY - 40) };
         }
-        return { x: page ? e.pageX  : e.clientX, y: page ? e.pageY : e.clientY };
+        return { x: page ? e.pageX : e.clientX, y: page ? e.pageY : e.clientY };
     };
     matrixRain();
     start();
