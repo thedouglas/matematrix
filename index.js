@@ -4,6 +4,7 @@ let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 let elementPontos = document.getElementById("pontos");
 let board = document.querySelector(".board");
 let draggables = document.querySelector(".draggables");
+document.getElementById("btnNewgame").addEventListener("click", start);
 
 const MATRIZ_SIZE = 10;
 if (MATRIZ_SIZE == 8) {
@@ -59,7 +60,7 @@ function matrixRain() {
 }
 
 function start() {
-
+    elementPontos.innerHTML = 0;
     board.innerHTML = "";
     draggables.innerHTML = "";
     for (let y = 0; y < MATRIZ_SIZE; y++) {
