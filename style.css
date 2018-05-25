@@ -65,6 +65,10 @@ html , body, #overlay {
      border: 1px dashed rgb(255, 0, 0);
      background: rgb(204, 204, 204);
 }
+.board > .board-item.over::after {
+   content: attr(over-value)
+}
+
 .board > .board-item.verify {
     background: rgb(204, 204, 204);
 }

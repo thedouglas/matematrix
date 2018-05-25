@@ -22,7 +22,7 @@ function matrixRain() {
 
     chinese = chinese.split("");
 
-    let font_size = 10;
+    let font_size = 15;
     let columns = c.width / font_size;
 
     let drops = [];
@@ -98,16 +98,20 @@ function start() {
 }
 
 function handleDragStart(e) {
-    this.style.opacity = '0.4';
+    element = e.target;
+    e.target.style.opacity = '0.1';
 
 }
 function handleDragEnter(e) {
+    console.log(e.target.textContent)
     if (this.disable === false) {
         this.classList.add('over');
+        e.target.setAttribute("over-value", element.textContent)
     }
 }
 function handleDragLeave(e) {
     this.classList.remove('over');
+    e.target.setAttribute("over-value", "")
 }
 function allowDrop(ev) {
     if (ev.target.disable === false) {
@@ -124,6 +128,7 @@ function drag(ev) {
 }
 
 function drop(ev) {
+    if (ev.target.disable) return;
     ev.preventDefault();
     let item = ev.dataTransfer.getData("item");
     ev.target.textContent = element.textContent;
