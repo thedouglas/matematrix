@@ -7,8 +7,8 @@ let draggables = document.querySelector(".draggables");
 let numerosEmJogo = []
 let operadoresEmJogo = [];
 
-document.getElementById("btnNewgame").addEventListener("click", () => {
-    if (confirm("Descartar jogo?")) {
+document.getElementById("btnNewgame").addEventListener("click", async () => {
+    if (await confirmDialog()) {
         localStorage.clear();
         start()
     }
@@ -298,6 +298,7 @@ async function verificaMatriz(yy, xx) {
 
     return [expressaoX, expressaoY];
 }
+//helper functions 
 function isDigit(ch) {
     return /\d/.test(ch);
 }
@@ -307,10 +308,47 @@ function isOperator(ch) {
     return /\+|-|\*|\/|\=/.test(ch);
 }
 
+async function confirmDialog() {
+    const dialog = document.createElement("dialog")
+    const overlay = document.createElement("section")
+    dialog.innerHTML = `
+      <b> Descartar jogo?</b>
+      <button id="btn-ok">Ok</button>
+      <button id="btn-cancel">cancel</button>
+   `;
+    dialog.style.display = "block";
+    dialog.style.top = "30%";
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.position = "absolute";
+    overlay.style.background = "#ddd";
+    overlay.style.top = "0";
+    overlay.style.opacity = ".6";
+    document.body.appendChild(overlay);
+    document.body.appendChild(dialog);
+    return new Promise(resolve => {
+
+        dialog.querySelector("#btn-ok").onclick = () => {
+            dialog.remove();
+            overlay.remove();
+            resolve(true);
+        };
+        dialog.querySelector("#btn-cancel").onclick = () => {
+            dialog.remove();
+            overlay.remove();
+            resolve(false);
+        };
+    });
+}
+
+Object.defineProperty(Array.prototype, 'chunk', {
+    value: function (n) { return Array(Math.ceil(this.length / n)).fill().map((_, i) => this.slice(i * n, i * n + n)) }
+});
+Array.prototype.random = function (length) {
+    return this[Math.floor(Math.random() * this.length)];
+};
+
 window.addEventListener("load", () => {
-    Array.prototype.random = function (length) {
-        return this[Math.floor(Math.random() * this.length)];
-    };
 
     // get point for a touch event
     DragDropTouch.DragDropTouch.prototype._getPoint = function (e, page) {
