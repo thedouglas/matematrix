@@ -86,7 +86,7 @@ function start() {
             div.setAttribute("y", y);
             div.setAttribute("id", `${x}_${y}`);
             div.addEventListener("drop", handleDrop, false);
-            div.addEventListener("dragover", allowDrop, false);
+            div.addEventListener("dragover", handleDragOver, false);
             div.addEventListener('dragenter', handleDragEnter, false);
             div.addEventListener('dragleave', handleDragLeave, false);
 
@@ -163,7 +163,7 @@ function handleDrop(ev) {
     calcule(ev);
 }
 
-function allowDrop(ev) {
+function handleDragOver(ev) {
     if (!ev.target.disable) {
         ev.preventDefault();
     }
